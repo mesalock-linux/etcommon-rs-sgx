@@ -12,7 +12,12 @@ name = "trie"
 [dependencies]
 etcommon-bigint = { version = "0.2", path = "../bigint" }
 etcommon-rlp = { version = "0.2", path = "../rlp" }
-sha3 = "0.6"
+sha3 = { git ="https://github.com/mesalock-linux/rustcrypto-hashes-sgx" }
+sgx_tstd = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
 
 [dev-dependencies]
-etcommon-hexutil = "0.2"
+#etcommon-hexutil = "0.2"
+
+[features]
+default = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_tstd"]

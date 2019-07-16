@@ -2,9 +2,10 @@ use rlp::{UntrustedRlp, DecoderError, RlpStream, Encodable, Decodable};
 use bigint::{Address, U256, M256, H256};
 use sha3::{Digest, Keccak256};
 
-#[cfg(not(feature = "std"))] use alloc::vec::Vec;
-#[cfg(not(feature = "std"))] use alloc::rc::Rc;
-#[cfg(feature = "std")] use std::rc::Rc;
+//#[cfg(not(feature = "std"))] use alloc::vec::Vec;
+//#[cfg(not(feature = "std"))] use alloc::rc::Rc;
+//#[cfg(feature = "std")] use std::rc::Rc;
+//use alloc::rc::Rc;
 
 // Use transaction action so we can keep most of the common fields
 // without creating a large enum.

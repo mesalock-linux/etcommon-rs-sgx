@@ -11,18 +11,25 @@
 #[cfg(feature = "rlp")]
 mod rlp;
 
-#[cfg(all(not(feature = "std"), feature = "string"))]
-use alloc::string::String;
+#[cfg(all(feature = "std", feature = "mesalock_sgx", feature = "string"))]
+use std::string::String;
+
+#[cfg(all(feature = "std", feature = "mesalock_sgx"))]
+use std::prelude::v1::*;
 
 #[cfg(feature = "std")] use std::{ops, fmt, cmp};
 #[cfg(feature = "std")] use std::cmp::{min, Ordering};
 #[cfg(feature = "std")] use std::ops::{Deref, DerefMut, BitXor, BitAnd, BitOr, IndexMut, Index};
-#[cfg(feature = "std")] use std::hash::{Hash, Hasher, BuildHasherDefault};
-#[cfg(feature = "std")] use std::collections::{HashMap as Map, HashSet as Set};
+#[cfg(feature = "std")] use std::hash::{Hash, Hasher};
 #[cfg(feature = "std")] use std::str::FromStr;
 #[cfg(feature = "std")] use rand::Rng;
-#[cfg(feature = "std")] use rand::os::OsRng;
-#[cfg(feature = "std")] use libc::{c_void, memcmp};
+#[cfg(feature = "std")] use rand::SgxRng;
+#[cfg(feature = "std")] use libc::{c_void, size_t, c_int};
+
+extern "C" {
+    // Yu: This will be linked to libsgx_tstdc.a during linking
+    fn memcmp(p: * const c_void, q: * const c_void, s: size_t) -> c_int;
+}
 
 #[cfg(not(feature = "std"))] use core::{ops, fmt, cmp};
 #[cfg(not(feature = "std"))] use core::cmp::{min, Ordering};
@@ -100,7 +107,7 @@ macro_rules! impl_hash {
             #[cfg(feature = "std")]
 			/// Assign self have a cryptographically random value.
 			pub fn randomize(&mut self) {
-				let mut rng = OsRng::new().unwrap();
+				let mut rng = SgxRng::new().unwrap();
 				rng.fill_bytes(&mut self.0);
 			}
 
@@ -536,12 +543,12 @@ impl Hasher for PlainHasher {
     }
 }
 
-#[cfg(feature = "std")]
-/// Specialized version of `HashMap` with H256 keys and fast hashing function.
-pub type H256FastMap<T> = Map<H256, T, BuildHasherDefault<PlainHasher>>;
-#[cfg(feature = "std")]
-/// Specialized version of `HashSet` with H256 keys and fast hashing function.
-pub type H256FastSet = Set<H256, BuildHasherDefault<PlainHasher>>;
+//#[cfg(feature = "std")]
+///// Specialized version of `HashMap` with H256 keys and fast hashing function.
+//pub type H256FastMap<T> = Map<H256, T, BuildHasherDefault<PlainHasher>>;
+//#[cfg(feature = "std")]
+///// Specialized version of `HashSet` with H256 keys and fast hashing function.
+//pub type H256FastSet = Set<H256, BuildHasherDefault<PlainHasher>>;
 
 #[cfg(test)]
 mod tests {

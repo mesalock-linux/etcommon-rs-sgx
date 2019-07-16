@@ -1146,7 +1146,7 @@ macro_rules! construct_uint {
 						let nibble = (ch & (15u64 << ((15 - x) * 4) as u64)) >> (((15 - x) * 4) as u64);
 						if !latch { latch = nibble != 0 }
 						if latch {
-							try!(write!(f, "{:x}", nibble));
+							write!(f, "{:x}", nibble)?;
 						}
 					}
 				}
@@ -1163,7 +1163,7 @@ macro_rules! construct_uint {
 						let nibble = (ch & (15u64 << ((15 - x) * 4) as u64)) >> (((15 - x) * 4) as u64);
 						if !latch { latch = nibble != 0 }
 						if latch {
-							try!(write!(f, "{:X}", nibble));
+							write!(f, "{:X}", nibble)?;
 						}
 					}
 				}

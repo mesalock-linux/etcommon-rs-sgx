@@ -1,8 +1,8 @@
 use merkle::{MerkleValue, MerkleNode};
-use merkle::nibble::{self, NibbleVec, NibbleSlice, Nibble};
-use {Change, DatabaseHandle};
+use merkle::nibble::NibbleVec;
+use DatabaseHandle;
 
-use rlp::{self, Rlp};
+use rlp::Rlp;
 
 pub fn get_by_value<'a, D: DatabaseHandle>(
     merkle: MerkleValue<'a>, nibble: NibbleVec, database: &'a D

@@ -3,7 +3,7 @@ use secp256k1::{SECP256K1, Error};
 #[cfg(feature = "c-secp256k1")]
 use secp256k1::key::{PublicKey, SecretKey};
 #[cfg(feature = "rust-secp256k1")]
-use secp256k1::{self, PublicKey, SecretKey, Error};
+use secp256k1::{PublicKey, SecretKey, Error};
 use bigint::{H256, Address};
 use sha3::{Digest, Keccak256};
 

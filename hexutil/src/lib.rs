@@ -1,5 +1,17 @@
 #![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(not(feature = "std"), allow(stable_features))]
 #![cfg_attr(not(feature = "std"), feature(alloc))]
+
+#![cfg_attr(all(feature = "mesalock_sgx",
+                not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use]
+extern crate sgx_tstd as std;
+
+#[cfg(feature = "mesalock_sgx")]
+use std::prelude::v1::*;
 
 #[cfg(not(feature = "std"))]
 extern crate alloc;

@@ -1,5 +1,6 @@
+use std::prelude::v1::*;
 use rlp::{Encodable, Decodable, RlpStream, DecoderError, UntrustedRlp};
-use bigint::{Address, Gas, H256, U256, B256, H64};
+use bigint::{Gas, H256};
 use bloom::LogsBloom;
 
 use super::Log;

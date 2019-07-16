@@ -1,10 +1,9 @@
+use std::prelude::v1::*;
 use rlp::{self, Encodable, Decodable, RlpStream, DecoderError, UntrustedRlp};
-use bigint::{Address, Gas, H256, U256, B256, H64, H2048};
-use bloom::LogsBloom;
+use bigint::{H256, U256};
 use trie::FixedMemoryTrieMut;
 use sha3::{Keccak256, Digest};
-use std::collections::HashMap;
-use super::{Header, Transaction, Receipt, SignaturePatch};
+use super::{Header, Transaction, Receipt};
 
 pub fn transactions_root(transactions: &[Transaction]) -> H256 {
     let mut trie = FixedMemoryTrieMut::default();

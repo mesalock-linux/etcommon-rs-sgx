@@ -6,6 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::prelude::v1::*;
+
 #[cfg(not(feature = "std"))]use alloc::vec::Vec;
 #[cfg(not(feature = "std"))]use alloc::string::String;
 

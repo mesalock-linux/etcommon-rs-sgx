@@ -1,6 +1,5 @@
-use super::merkle::MerkleNode;
+use std::prelude::v1::*;
 use bigint::H256;
-use rlp::Rlp;
 use std::collections::HashMap;
 use std::cell::{RefCell, UnsafeCell};
 
@@ -27,7 +26,7 @@ impl Cache {
 
     pub fn get<'a>(&'a self, key: H256) -> Option<&'a [u8]> {
         let cache = unsafe { &mut *self.cache.get() };
-        let mut map = self.map.borrow_mut();
+        let map = self.map.borrow_mut();
         match map.get(&key) {
             Some(index) => Some(&cache[*index]),
             None => None,
@@ -35,7 +34,7 @@ impl Cache {
     }
 
     pub fn contains_key(&self, key: H256) -> bool {
-        let mut map = self.map.borrow_mut();
+        let map = self.map.borrow_mut();
         map.contains_key(&key)
     }
 }

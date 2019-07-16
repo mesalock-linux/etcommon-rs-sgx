@@ -1,7 +1,8 @@
-#![cfg_attr(not(feature = "std"), no_std)]
-#![cfg_attr(not(feature = "std"), feature(alloc))]
+#![no_std]
+//#![cfg_attr(not(feature = "std"), no_std)]
+//#![cfg_attr(not(feature = "std"), feature(alloc))]
 
-#[cfg(not(feature = "std"))]
+//#[cfg(not(feature = "std"))]
 extern crate alloc;
 
 extern crate sha3;

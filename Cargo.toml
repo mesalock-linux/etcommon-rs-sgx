@@ -6,6 +6,6 @@ members = [
   "./block",
   "./block-core",
   "./trie",
-  "./trie/rocksdb",
+  #"./trie/rocksdb",
   "./bloom",
 ]

@@ -9,13 +9,13 @@ use rlp::{Encodable, Decodable, RlpStream, DecoderError, UntrustedRlp};
 
 #[cfg(feature = "std")] use std::ops::{Add, Sub, Mul, Div, Rem};
 #[cfg(feature = "std")] use std::cmp::Ordering;
-#[cfg(feature = "std")] use std::str::FromStr;
 #[cfg(feature = "std")] use std::fmt;
 
 #[cfg(not(feature = "std"))] use core::ops::{Add, Sub, Mul, Div, Rem};
 #[cfg(not(feature = "std"))] use core::cmp::Ordering;
-#[cfg(not(feature = "std"))] use core::str::FromStr;
+use core::str::FromStr;
 #[cfg(not(feature = "std"))] use core::fmt;
+#[cfg(not(feature = "std"))] use core::str::FromStr;
 
 #[derive(Eq, PartialEq, Debug, Copy, Clone, Hash)]
 pub struct Gas(U256);

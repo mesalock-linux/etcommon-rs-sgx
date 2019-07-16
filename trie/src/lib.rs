@@ -1,5 +1,15 @@
 //! Merkle trie implementation for Ethereum.
 
+#![cfg_attr(all(feature = "mesalock_sgx",
+                not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use]
+extern crate sgx_tstd as std;
+
+use std::prelude::v1::*;
+
 extern crate bigint;
 extern crate rlp;
 extern crate sha3;
@@ -10,7 +20,7 @@ use rlp::Rlp;
 use sha3::{Digest, Keccak256};
 use std::collections::{HashMap, HashSet};
 use merkle::{MerkleValue, MerkleNode};
-use merkle::nibble::{self, NibbleVec, NibbleSlice, Nibble};
+use merkle::nibble;
 
 macro_rules! empty_nodes {
     () => (

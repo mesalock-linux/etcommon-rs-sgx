@@ -6,10 +6,12 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::prelude::v1::*;
+
 #[cfg(not(feature = "std"))]use alloc::vec::Vec;
 #[cfg(not(feature = "std"))]use alloc::string::String;
 
-#[cfg(feature = "std")] use std::{cmp, mem, str};
+#[cfg(feature = "std")] use std::{mem, str};
 #[cfg(not(feature = "std"))] use core::{cmp, mem, str};
 use byteorder::{ByteOrder, BigEndian};
 use traits::{Encodable, Decodable};
@@ -182,33 +184,33 @@ impl Decodable for usize {
 	}
 }
 
-macro_rules! impl_encodable_for_hash {
-	($name: ident) => {
-		impl Encodable for $name {
-			fn rlp_append(&self, s: &mut RlpStream) {
-				s.encoder().encode_value(self);
-			}
-		}
-	}
-}
-
-macro_rules! impl_decodable_for_hash {
-	($name: ident, $size: expr) => {
-		impl Decodable for $name {
-			fn decode(rlp: &UntrustedRlp) -> Result<Self, DecoderError> {
-				rlp.decoder().decode_value(|bytes| match bytes.len().cmp(&$size) {
-					cmp::Ordering::Less => Err(DecoderError::RlpIsTooShort),
-					cmp::Ordering::Greater => Err(DecoderError::RlpIsTooBig),
-					cmp::Ordering::Equal => {
-						let mut t = [0u8; $size];
-						t.copy_from_slice(bytes);
-						Ok($name(t))
-					}
-				})
-			}
-		}
-	}
-}
+//macro_rules! impl_encodable_for_hash {
+//	($name: ident) => {
+//		impl Encodable for $name {
+//			fn rlp_append(&self, s: &mut RlpStream) {
+//				s.encoder().encode_value(self);
+//			}
+//		}
+//	}
+//}
+//
+//macro_rules! impl_decodable_for_hash {
+//	($name: ident, $size: expr) => {
+//		impl Decodable for $name {
+//			fn decode(rlp: &UntrustedRlp) -> Result<Self, DecoderError> {
+//				rlp.decoder().decode_value(|bytes| match bytes.len().cmp(&$size) {
+//					cmp::Ordering::Less => Err(DecoderError::RlpIsTooShort),
+//					cmp::Ordering::Greater => Err(DecoderError::RlpIsTooBig),
+//					cmp::Ordering::Equal => {
+//						let mut t = [0u8; $size];
+//						t.copy_from_slice(bytes);
+//						Ok($name(t))
+//					}
+//				})
+//			}
+//		}
+//	}
+//}
 
 impl<'a> Encodable for &'a str {
 	fn rlp_append(&self, s: &mut RlpStream) {
