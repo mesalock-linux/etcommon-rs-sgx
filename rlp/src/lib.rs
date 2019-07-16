@@ -9,6 +9,10 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 #![cfg_attr(not(feature = "std"), feature(alloc))]
 
+#![cfg_attr(all(feature = "mesalock_sgx",
+                not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
 //! Recursive Length Prefix serialization crate.
 //!
 //! Allows encoding, decoding, and view onto rlp-slice
@@ -40,6 +44,12 @@
 //! * You are working on input data.
 //! * You want to get view onto rlp-slice.
 //! * You don't want to decode whole rlp at once.
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
+#[macro_use]
+extern crate sgx_tstd as std;
+
+use std::prelude::v1::*;
 
 extern crate byteorder;
 extern crate elastic_array;

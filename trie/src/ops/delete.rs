@@ -1,8 +1,8 @@
 use merkle::{MerkleValue, MerkleNode};
-use merkle::nibble::{self, NibbleVec, NibbleSlice, Nibble};
+use merkle::nibble::{NibbleVec, Nibble};
 use {Change, DatabaseHandle};
 
-use rlp::{self, Rlp};
+use rlp::Rlp;
 
 fn find_and_remove_child<'a, D: DatabaseHandle>(
     merkle: MerkleValue<'a>, database: &'a D

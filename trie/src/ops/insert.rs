@@ -1,8 +1,8 @@
 use merkle::{MerkleValue, MerkleNode};
-use merkle::nibble::{self, NibbleVec, NibbleSlice, Nibble};
+use merkle::nibble::{self, NibbleVec};
 use {Change, DatabaseHandle};
 
-use rlp::{self, Rlp};
+use rlp::Rlp;
 
 fn value_and_leaf_branch<'a>(
     anibble: NibbleVec, avalue: MerkleValue<'a>, bnibble: NibbleVec, bvalue: &'a [u8]

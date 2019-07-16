@@ -1,6 +1,7 @@
-use super::nibble::{self, Nibble, NibbleVec, NibbleSlice, NibbleType};
+use std::prelude::v1::*;
+use super::nibble::{self, NibbleVec, NibbleType};
 
-use rlp::{self, RlpStream, Encodable, Decodable, Rlp, Prototype};
+use rlp::{self, RlpStream, Encodable, Rlp, Prototype};
 use bigint::H256;
 use std::borrow::Borrow;
 

@@ -1,15 +1,15 @@
+use std::prelude::v1::*;
 #[cfg(feature = "c-secp256k1")]
 use secp256k1::{Message, Error, RecoverableSignature, RecoveryId, SECP256K1};
 #[cfg(feature = "c-secp256k1")]
 use secp256k1::key::{PublicKey, SecretKey};
 #[cfg(feature = "rust-secp256k1")]
-use secp256k1::{self, Message, Error, Signature, RecoveryId, SecretKey, PublicKey};
+use secp256k1::{self, Message, Error, Signature, RecoveryId, SecretKey};
 
 use rlp::{self, Encodable, Decodable, RlpStream, DecoderError, UntrustedRlp};
-use bigint::{Address, Gas, H256, U256, B256, M256};
+use bigint::{Address, Gas, H256, U256};
 use sha3::{Digest, Keccak256};
 use address::FromKey;
-use std::marker::PhantomData;
 use std::str::FromStr;
 use super::{TransactionAction, RlpHash};
 
@@ -47,7 +47,7 @@ impl ValidationPatch for HomesteadValidationPatch {
     fn require_low_s() -> bool { true }
 }
 
-const ECDSA_SIGNATURE_BYTES: usize = 65;
+//const ECDSA_SIGNATURE_BYTES: usize = 65;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct TransactionSignature {
@@ -157,7 +157,7 @@ impl UnsignedTransaction {
             #[cfg(feature = "c-secp256k1")]
             { SECP256K1.sign_recoverable(&msg, key).unwrap() }
             #[cfg(feature = "rust-secp256k1")]
-            { secp256k1::sign(&msg, key).unwrap() }
+            { secp256k1::sign(&msg, key) }
         };
         let (rid, sig) = {
             #[cfg(feature = "c-secp256k1")]

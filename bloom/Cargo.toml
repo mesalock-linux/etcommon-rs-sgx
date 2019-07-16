@@ -12,7 +12,12 @@ name = "bloom"
 [dependencies]
 etcommon-rlp = { version = "0.2", path = "../rlp" }
 etcommon-bigint = { version = "0.2", path = "../bigint" }
-sha3 = "0.6"
+sha3 = { git = "https://github.com/mesalock-linux/rustcrypto-hashes-sgx" }
+sgx_tstd = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 
 [dev-dependencies]
 etcommon-hexutil = "0.2"
+
+[features]
+default = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_tstd"]

@@ -11,11 +11,13 @@ keywords = ["no_std"]
 name = "rlp"
 
 [dependencies]
-elastic-array-plus = { version = "0.10.0", default-features = false }
-lazy_static = { version = "0.2", optional = true }
-byteorder = { version = "1.0", default-features = false }
-etcommon-hexutil = { version = "0.2", path = "../hexutil", default-features = false }
+elastic-array = { git = "https://github.com/mesalock-linux/elastic-array-sgx" }
+lazy_static = { version = "1.0", features = ["spin_no_std"] }
+byteorder = { git = "https://github.com/mesalock-linux/byteorder-sgx" }
+etcommon-hexutil = { version = "0.2", path = "../hexutil" }
+sgx_tstd = { rev = "v1.0.9", git = "https://github.com/baidu/rust-sgx-sdk.git", optional = true }
 
 [features]
-default = ["std"]
-std = ["etcommon-hexutil/std", "byteorder/std", "lazy_static", "elastic-array-plus/std"]
+default = ["std", "mesalock_sgx"]
+std = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_tstd"]

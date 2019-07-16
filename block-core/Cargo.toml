@@ -11,14 +11,14 @@ keywords = ["no_std"]
 name = "block_core"
 
 [dependencies]
-sha3 = "0.6"
-etcommon-bigint = { version = "0.2", path = "../bigint", default-features = false, features = ["rlp", "string"] }
-etcommon-rlp = { version = "0.2", path = "../rlp", default-features = false }
+sha3 = { git = "https://github.com/mesalock-linux/rustcrypto-hashes-sgx" }
+etcommon-bigint = { version = "0.2", path = "../bigint" }
+etcommon-rlp = { version = "0.2", path = "../rlp" }
 
 [dev-dependencies]
-rand = "0.3.12"
-etcommon-hexutil = "0.2"
+#rand = "0.3.12"
+#etcommon-hexutil = "0.2"
 
 [features]
-default = ["std"]
+default = []
 std = ["etcommon-bigint/std", "etcommon-rlp/std"]

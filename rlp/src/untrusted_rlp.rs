@@ -6,6 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::prelude::v1::*;
+
 #[cfg(not(feature = "std"))]use alloc::vec::Vec;
 #[cfg(not(feature = "std"))]use alloc::string::String;
 
@@ -90,8 +92,6 @@ impl PayloadInfo {
 				let len_of_len = l as usize - 0xf7;
 				calculate_payload_info(header_bytes, len_of_len)
 			},
-			// we cant reach this place, but rust requires _ to be implemented
-			_ => { unreachable!(); }
 		}
 	}
 }
@@ -281,7 +281,7 @@ impl<'a, 'view> UntrustedRlp<'a> where 'a: 'view {
 		let mut result = bytes;
 		for _ in 0..items {
 			let i = BasicDecoder::payload_info(result)?;
-			result = UntrustedRlp::consume(result, (i.header_len + i.value_len))?;
+			result = UntrustedRlp::consume(result, i.header_len + i.value_len)?;
 		}
 		Ok(result)
 	}
