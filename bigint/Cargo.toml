@@ -17,9 +17,9 @@ etcommon-rlp = { version = "0.2", path = "../rlp", optional = true }
 etcommon-hexutil = { version = "0.2", path = "../hexutil", optional = true }
 
 [target.'cfg(not(target_env = "sgx"))'.dependencies]
-sgx_rand = { rev = "v1.1.1", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
-sgx_libc = { rev = "v1.1.1", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
-sgx_tstd = { rev = "v1.1.1", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
+sgx_rand = { rev = "v1.1.2", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
+sgx_libc = { rev = "v1.1.2", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
+sgx_tstd = { rev = "v1.1.2", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
 
 [features]
 default = ["std", "mesalock_sgx", "rlp", "string"]
